@@ -20,14 +20,7 @@ Dialog::~Dialog()
 void Dialog::on_pushButton_clicked()
 {
     qDebug() << "on_pushButton_clicked" << QThread::currentThread();
-//    mthread = new QThread();
-//    Worker *worker = new Worker();
-//    connect(mthread,&QThread::started,worker,&Worker::DoWork);
-//    connect(worker,&Worker::Complete,this,&Dialog::complete);
-//    worker->moveToThread(mthread);
-//    mthread->start();
     autothread *AT = new autothread(this);
-//    AT->deleteLater();
 }
 
 void Dialog::complete()
@@ -35,5 +28,6 @@ void Dialog::complete()
     Worker *worker = qobject_cast<Worker*>(sender());
     qDebug() << "Complete" << worker;
     worker->deleteLater();
+    worker->thread()->exit();
 }
 
